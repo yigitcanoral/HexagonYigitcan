@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 8750011361014003824}
   - component: {fileID: 6516117828965380919}
   m_Layer: 0
-  m_Name: Hexagon Flat-Top
+  m_Name: hexagon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 1960816080411941912}
   - component: {fileID: 2150721089855613306}
   m_Layer: 0
-  m_Name: Hexagon Flat-Top (1)
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

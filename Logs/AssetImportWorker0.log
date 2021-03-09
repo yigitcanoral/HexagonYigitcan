@@ -1,0 +1,138 @@
+Using pre-set license
+Built from '2020.2/staging' branch; Version is '2020.2.7f1 (c53830e277f1) revision 12924976'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Education; OS build 19042.804; Version 2009; 64bit' Language: 'en' Physical Memory: 16241 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+D:\Unity Versions\2020.2.7f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+D:/Unity Projects/HexagonYigitcan
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+58117
+Successfully changed project path to: D:/Unity Projects/HexagonYigitcan
+D:/Unity Projects/HexagonYigitcan
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 39.33 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.2.7f1 (c53830e277f1)
+[Subsystems] Discovering subsystems at path D:/Unity Versions/2020.2.7f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Unity Projects/HexagonYigitcan/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 2060 (ID=0x1f11)
+    Vendor:   
+    VRAM:     5980 MB
+    Driver:   27.21.14.5773
+Initialize mono
+Mono path[0] = 'D:/Unity Versions/2020.2.7f1/Editor/Data/Managed'
+Mono path[1] = 'D:/Unity Versions/2020.2.7f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'D:/Unity Versions/2020.2.7f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56116
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: D:/Unity Versions/2020.2.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.001141 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 36.16 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.113 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.000867 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 37.40 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.878 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 0.43 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1922 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 89.5 MB.
+System memory in use after: 89.6 MB.
+
+Unloading 31 unused Assets to reduce memory usage. Loaded Objects now: 2358.
+Total: 2.747900 ms (FindLiveObjects: 0.529500 ms CreateObjectMapping: 0.239100 ms MarkObjects: 1.941700 ms  DeleteObjects: 0.036400 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Hexagon Flat-Top.asset
+  artifactKey: Guid(cf3ece4e8c940404aa3ff58018b0c61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Hexagon Flat-Top.asset using Guid(cf3ece4e8c940404aa3ff58018b0c61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f704c2838e66e4e47ce85d815e55b7a') in 0.106766 seconds
+  Import took 0.258441 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.568241 seconds.
+  path: Assets/Prefabs/tile.prefab
+  artifactKey: Guid(2caa11eca7cf1064ca551b0db41ad050) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/tile.prefab using Guid(2caa11eca7cf1064ca551b0db41ad050) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6fdeb385db0279afdaab4af652bf2d87') in 0.040567 seconds
+  Import took 0.208081 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.913347 seconds.
+  path: Assets/Prefabs/hexagontile.png
+  artifactKey: Guid(42c55e7d30b15cf48bf24fab073828d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/hexagontile.png using Guid(42c55e7d30b15cf48bf24fab073828d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ac2b377c5fd44d53bca3046a04f6dcc') in 0.086309 seconds
+  Import took 0.089638 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 33.976980 seconds.
+  path: Assets/HexagonFlat-Top 1.png
+  artifactKey: Guid(4bc42685eb2bbc84f81f979160860d0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/HexagonFlat-Top 1.png using Guid(4bc42685eb2bbc84f81f979160860d0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8df1e7417d5724358e2a0a0385af7d55') in 0.009416 seconds
+  Import took 0.012956 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.221819 seconds.
+  path: Assets/HexagonFlat-Top.png
+  artifactKey: Guid(0c8bbc7a1b480fd4c88a491e4674883b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/HexagonFlat-Top.png using Guid(0c8bbc7a1b480fd4c88a491e4674883b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e9c0e63342226c2a96c609463acb541') in 0.015458 seconds
+  Import took 0.018538 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.041751 seconds.
+  path: Assets/Screenshot 2021-03-05 181804.png
+  artifactKey: Guid(d16f079242035544dbb3f48a5005cd04) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Screenshot 2021-03-05 181804.png using Guid(d16f079242035544dbb3f48a5005cd04) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c972fc794177a0255495aecf131113a2') in 0.019024 seconds
+  Import took 0.022120 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000344 seconds.
+  path: Assets/Screenshot 2021-03-05 181804.png
+  artifactKey: Guid(d16f079242035544dbb3f48a5005cd04) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Screenshot 2021-03-05 181804.png using Guid(d16f079242035544dbb3f48a5005cd04) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c972fc794177a0255495aecf131113a2') in 0.016692 seconds
+  Import took 0.019912 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.400155 seconds.
+  path: Assets/Prefabs/tile.prefab
+  artifactKey: Guid(2caa11eca7cf1064ca551b0db41ad050) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/tile.prefab using Guid(2caa11eca7cf1064ca551b0db41ad050) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a828b23b0da912fb2048e96c2d9119a2') in 0.009849 seconds
+  Import took 0.134618 seconds .
+
