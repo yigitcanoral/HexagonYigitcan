@@ -1,54 +1,66 @@
 {
     "m_SelectedDeviceId": "L2N0219927023354",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "L2N0219927023354",
+        "name": "com.DefaultCompany.com.unity.template.mobile2D",
+        "processId": 15819,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "L2N0219927023354",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 6848,
-            "exited": true
-        },
-        {
-            "deviceId": "L2N0219927023354",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 21923,
-            "exited": true
-        },
-        {
-            "deviceId": "L2N0219927023354",
-            "name": "com.unity3d.mobileremote",
-            "processId": 17936,
-            "exited": false
-        },
-        {
-            "deviceId": "L2N0219927023354",
-            "name": "com.DefaultCompany.com.unity.template.mobile2D",
-            "processId": 30665,
-            "exited": true
-        },
-        {
-            "deviceId": "L2N0219927023354",
-            "name": "com.rippalka.hexfall",
-            "processId": 4159,
-            "exited": true
-        },
-        {
-            "deviceId": "L2N0219927023354",
             "name": "com.huawei.hisuite",
             "processId": 18734,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "L2N0219927023354",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 26309,
             "exited": true
+        },
+        {
+            "deviceId": "L2N0219927023354",
+            "name": "com.huawei.hisuite",
+            "processId": 31925,
+            "exited": false
+        },
+        {
+            "deviceId": "L2N0219927023354",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 10915,
+            "exited": true
+        },
+        {
+            "deviceId": "L2N0219927023354",
+            "name": "com.unity3d.mobileremote",
+            "processId": 12841,
+            "exited": true
+        },
+        {
+            "deviceId": "L2N0219927023354",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 13821,
+            "exited": true
+        },
+        {
+            "deviceId": "L2N0219927023354",
+            "name": "com.unity3d.mobileremote",
+            "processId": 26897,
+            "exited": false
+        },
+        {
+            "deviceId": "L2N0219927023354",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 29551,
+            "exited": false
+        },
+        {
+            "deviceId": "L2N0219927023354",
+            "name": "com.DefaultCompany.com.unity.template.mobile2D",
+            "processId": 15819,
+            "exited": false
         }
     ],
     "m_Tags": {

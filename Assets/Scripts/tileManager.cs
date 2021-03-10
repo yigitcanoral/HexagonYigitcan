@@ -16,6 +16,7 @@ public class tileManager : MonoBehaviour
     public float tilegapy;
     public int ci;
     public List<GameObject> tiles;
+    public float tiledropspeed;
     public TMP_Text scoretxt;
     public TMP_Text highscoretxt;
 
@@ -35,7 +36,7 @@ public class tileManager : MonoBehaviour
 
 
 
-
+    public bomb bomb;
     public GameObject expl;
 
 
@@ -44,20 +45,29 @@ public class tileManager : MonoBehaviour
     void OnEnable()
     {
         spawntiles();
-        //checkforgrouped();
-        InvokeRepeating("checkforgrouped", 0.05f, 0.05f);
-        Invoke("settext", 0.2f);
+        //check matched blocks after tile spawn
+        //InvokeRepeating("checkforgrouped", 0.05f, 0.05f);
+        checkforgrouped();
+        Invoke("setvaluesafterinitialize", 0.2f);
     }
-    void settext()
+    void setvaluesafterinitialize()
     {
 
-        CancelInvoke("checkforgrouped");
+       // CancelInvoke("checkforgrouped");
         score = 0;
         highscore = 0;
         scoretxt.text = score.ToString();
         highscoretxt.text = highscore.ToString();
-        isbombactive = false;
-        bombtxtobj.transform.position = new Vector3(-30,0,0);
+
+
+        /*You are trying to create a MonoBehaviour using the 'new' keyword.  This is not allowed.  
+         * MonoBehaviours can only be added using AddComponent().
+         * 
+         * attached bomb class to bomb object and call setbombvalues instad of creating object instance and call constructor
+         */
+        bomb.setbombvalues(Random.Range(0,xgrid*ygrid),9,false,xgrid*ygrid);
+       // isbombactive = false;
+      //  bombtxtobj.transform.position = new Vector3(-30,0,0);
     }
 
 
@@ -75,6 +85,7 @@ public class tileManager : MonoBehaviour
     }
     void spawntiles()
     {
+        /*
 #if UNITY_EDITOR
         if (tiles.Count > 0)
         {
@@ -89,18 +100,20 @@ public class tileManager : MonoBehaviour
         }
 
 #endif
+        */
+         //Create tiles by x y values
         for (int i = 0; i < xgrid; i++)
         {
             for (int j = 0; j < ygrid; j++)
             {
                 if (i % 2 == 0)
                 {
-                    GameObject s = Instantiate(tile, new Vector2(i + tilegapx * i, (j + tilegapy * j) - gap), transform.rotation);
+                    GameObject s = Instantiate(tile, new Vector2(i + tilegapx * i, (j + tilegapy * j) + gap), transform.rotation);
                     ci = Random.Range(0, tilecolors.Length);
                     s.GetComponent<tile>().sprite.color = tilecolors[ci];
                     s.GetComponent<tile>().colorindex = ci;
-                    s.GetComponent<tile>().xx = i;
-                    s.GetComponent<tile>().yy = j;
+                   // s.GetComponent<tile>().xx = i;
+                   // s.GetComponent<tile>().yy = j;
 
 
                     tiles.Add(s);
@@ -111,8 +124,8 @@ public class tileManager : MonoBehaviour
                     ci = Random.Range(0, tilecolors.Length);
                     s.GetComponent<tile>().sprite.color = tilecolors[ci];
                     s.GetComponent<tile>().colorindex = ci;
-                    s.GetComponent<tile>().xx = i;
-                    s.GetComponent<tile>().yy = j;
+                   // s.GetComponent<tile>().xx = i;
+                   // s.GetComponent<tile>().yy = j;
                     tiles.Add(s);
                 }
 
@@ -120,42 +133,24 @@ public class tileManager : MonoBehaviour
         }
     }
 
-    public void bombexpolode() 
+
+
+
+
+    public void turnpassed()   //after user input in controls.cs
     {
-        isbombactive = false;
-        bombtxtobj.transform.position = new Vector3(0, -30, 0);
-        bombtxtobj.transform.parent = null;
-        /*
-        bombtxtobj.transform.position = new Vector3(0,-30,0);
-        List<Collider2D> blocks = new List<Collider2D>();
-        foreach (GameObject c in tiles)
-        {
-            if (c.GetComponent<tile>().colorindex==colorindex)
-            {
-                blocks.Add(c.GetComponent<Collider2D>());
-            }
-        }
-        moveblocksafterexplode(blocks);
-        */
-    }
-    public void setbomb() 
-    {
-        isbombactive = true;
-        bombindex = Random.Range(0,xgrid*ygrid);
-        bombtxtobj.transform.position = tiles[bombindex].transform.position;
-        bombtxtobj.gameObject.transform.parent = tiles[bombindex].transform;
-        bombremaingtime = 9;
-        bombcolor = tiles[bombindex].GetComponent<tile>().colorindex;
-    }
-    public void turnpassed() 
-    {
-        if (isbombactive==false)
+        if (bomb.isbombactive==false)
         {
             return;
         }
-        bombremaingtime -= 1;
+        bomb.updatebombvalues();
+        /*
+        bomb.bombremaingtime -= 1;
         remainingtimebombtxt.text = bombremaingtime.ToString();
-        if (bombremaingtime<=0)
+
+        */
+        //game ended, play again button setted active
+        if (bomb.bombremaingtime<=0) 
         {
             Debug.Log("Game Over");
             scoretxt.text = "Game Over";
@@ -167,15 +162,22 @@ public class tileManager : MonoBehaviour
     }
 
 
-
-
+    /*   Check all the tiles one by one if ther is any same color near
+     *   check if the distance between tiles are lower than specific values to  (3 blocks can be Y or l shape )
+     *    if colors and distance calculation are good then send these tiles as list to moveblocksafterexplode function.
+     *    
+     *    in case of matched tiles, check again as the new tiles can be matched again
+     */
     public bool checkforgrouped()
     {
-        bool exploded = false;
+        refresh();
+        Debug.Log("chek worked");
         for (int tile = 0; tile < tiles.Count; tile++)
         {
+
             float xpos = tiles[tile].transform.position.x;
             xpos = Mathf.Round(xpos * 10.0f) * 0.1f;
+            //Debug.Log("x position of tile:"+tiles[tile].transform.position.x+" int version:"+xpos);
             tiles[tile].transform.position = new Vector2(xpos, tiles[tile].transform.position.y);
             if (tiles[tile].GetComponent<tile>().colorindex == 10)
             {
@@ -191,6 +193,9 @@ public class tileManager : MonoBehaviour
 
                 }
             }
+            /*
+             * 
+             */
             bool canexplode = false;
             switch (nearbs.Count)
             {
@@ -203,28 +208,38 @@ public class tileManager : MonoBehaviour
                     else
                     {
                         canexplode = true;
+                      //  Debug.Log("3 tile group matched");
                     }
                     break;
 
 
                 case 4:
                     Vector2 middlepoint;
-
+                    List<Collider2D> tempnearbs = new List<Collider2D>();
                     middlepoint = (nearbs[0].transform.position +
                    nearbs[1].transform.position +
                    nearbs[2].transform.position +
                    nearbs[3].transform.position) / 4;
                     foreach (Collider2D tl in nearbs)
                     {
-                        if (Vector2.Distance(middlepoint, tl.transform.position) > 0.5f)
+                        if (Vector2.Distance(middlepoint, tl.transform.position) > 0.4f)
                         {
                             //  nearbs.Remove(tl);
                             canexplode = false;
                         }
                         else
                         {
+                            //tempnearbs.Add(tl);
                             canexplode = true;
+                          //  Debug.Log("4 tile group matched");
+
+
                         }
+                    }
+                    //nearbs = tempnearbs;
+                    if (nearbs.Count<3)
+                    {
+                       // canexplode = false;
                     }
                     canexplode = false;
                     break;
@@ -232,57 +247,53 @@ public class tileManager : MonoBehaviour
                     canexplode = false;
                     break;
                 case 6:
-                    canexplode = false;
+                    canexplode = true;
                     break;
 
                 default:
                     canexplode = false;
                     break;
             }
-            if (canexplode == true)// patlayan oldu bloklari yeniden diz ve tekrar check et
+            if (canexplode == true)// do movements of tiles after matched tiles
             {
-                exploded = true;
+                //StartCoroutine( waitandcall(nearbs));
+
                 moveblocksafterexplode(nearbs);
-                // tile = 0;
-                //return true;
-                //checkforgrouped();
-                //exploded = true;
-                //return checkforgrouped();
-                //return exploded;
-            }
-            else  //patlayan olmadi fonksiyon bitebilir.
-            {
-                //return false;
-                //exploded = true;
-            }
-
-
-            if (exploded == true && tile == tiles.Count - 1)
-            {
-                // print("bitti ve true dondu");
+                
                 return true;
             }
-        }
-        if (exploded)
-        {
+            else  //no tiles matched
+            {
 
-            return checkforgrouped();
+            }
         }
+
 
 
         return false;
+
+    }
+    IEnumerator waitandcall(float time) 
+    {
+        yield return new WaitForSeconds(time);
+        checkforgrouped();
 
     }
 
 
 
 
-
-
+    /*
+     * like object pooling move the mathced tiles to top and give new color
+     * move down the other tiles in same x position of matched tile  
+     */
     public void moveblocksafterexplode(List<Collider2D> explodedblocks)
     {
-        Vector2 pos = (explodedblocks[0].transform.position + explodedblocks[1].transform.position + explodedblocks[2].transform.position) / 3f;
-        //GameObject exploeffect = Instantiate(expl, new Vector2(pos.x, pos.y), Quaternion.identity);
+        StartCoroutine(movetilesup(explodedblocks));
+
+    }
+    IEnumerator movetilesup(List<Collider2D> explodedblocks) 
+    {
         foreach (Collider2D c in explodedblocks)
         {
             if (c != null)
@@ -296,21 +307,43 @@ public class tileManager : MonoBehaviour
 
                 if (xpos % 2 == 0)
                 {
-                    zeropoint = -0.46f;
+                    zeropoint = gap;
                 }
 
-                //blocks exploded;
-
-                float distancetonewposition = zeropoint + ygrid * 0.92f;
-                //distancetonewposition = 15+c.transform.position.y;
-                c.transform.position = new Vector3(c.transform.position.x, distancetonewposition, 0);
-                if (isbombactive==true&& c.gameObject == tiles[bombindex])
+                //tile explode part; move them to up and add score
+                float distancetonewposition = zeropoint + ygrid * gap * 2f;
+                 c.transform.position = new Vector3(c.transform.position.x, distancetonewposition, 0);
+                //StartCoroutine(MoveObject(c.gameObject, new Vector3(c.transform.position.x, distancetonewposition, 0), 1f));
+                foreach (GameObject tile in tiles)
                 {
-                    bombexpolode();
-                   // isbombactive = false;
+
+                    float tilexpos = tile.transform.position.x;
+                    float tileypos = tile.transform.position.y;
+
+                    //tile.transform.localScale = new Vector3(1, 1, 1);
+                    tile.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    xpos = Mathf.Round(xpos * 10.0f) * 0.1f;
+                    // ypos = Mathf.Round(ypos * 10.0f) * 0.1f;
+
+                    tile.transform.position = new Vector2(tilexpos, tileypos);
+
+                    //move all the tiles that on same x position to down by one height of tile
+
+                    if (Mathf.Abs(tile.transform.position.x - xposition) <= 0.15f && tile.transform.position.y >= yposition)
+                    {
+                        // tile.transform.position = tile.transform.position - new Vector3(0, gap*2f , 0);
+                        StartCoroutine(MoveObject(tile, tile.transform.position - new Vector3(0, gap * 2f, 0), tiledropspeed));
+                    }
+
                 }
-               // StartCoroutine(MoveObject(c.gameObject, new Vector3(c.transform.position.x, distancetonewposition, 0), 1f));
-                
+
+                if (bomb.isbombactive == true && c.gameObject == tiles[bomb.bombindex])
+                {
+                    Debug.Log("bomb defused");
+                    bomb.bombexpolode();
+                    //bombexpolode();
+                }
+
                 score += 5;
                 if (score > highscore)
                 {
@@ -319,44 +352,36 @@ public class tileManager : MonoBehaviour
                 scoretxt.text = score.ToString();
                 highscoretxt.text = highscore.ToString();
 
-                if (score%1000==0)
+                if (score % 1000 == 0)
                 {
                     Debug.Log("bomb spawned");
-                    setbomb();
+                    //setbomb();
+                    int newbombindex = Random.Range(0, xgrid * ygrid);
+                    bomb.setbomb(newbombindex, 9, tiles[newbombindex]);
                 }
-
-                foreach (GameObject tile in tiles)
-                {
-                    float tilexpos = tile.transform.position.x;
-                    float tileypos = tile.transform.position.y;
-
-                    tile.transform.localScale = new Vector3(1, 1, 1);
-                    tile.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    xpos = Mathf.Round(xpos * 10.0f) * 0.1f;
-                    // ypos = Mathf.Round(ypos * 10.0f) * 0.1f;
-
-                    tile.transform.position = new Vector2(tilexpos, tileypos);
-
-                    if (Mathf.Abs(tile.transform.position.x - xposition) <= 0.1f && tile.transform.position.y > yposition)
-                    {
-                        tile.transform.position = tile.transform.position - new Vector3(0, 0.92f, 0);
-                      //  StartCoroutine( MoveObject(tile, tile.transform.position - new Vector3(0, 0.92f, 0), 2f));
-
-                    }
-                }
+               
                 int newcolorindex = Random.Range(0, tilecolors.Length);
+                //Debug.Log("tile exploded, color:"+ c.GetComponent<tile>().colorindex+" /  new color :"+newcolorindex);
                 c.GetComponent<tile>().colorindex = newcolorindex;
                 c.GetComponent<tile>().sprite.color = tilecolors[newcolorindex];
 
-                 //c.GetComponent<tile>().colorindex = 10;
+                //For test, make matched tiles white and change color index to not match again with other white ones.
+                //c.GetComponent<tile>().colorindex = 10;
                 // c.GetComponent<tile>().sprite.color = Color.white;
 
             }
+
+            yield return new WaitForSeconds(0.25f);//0.44
+
         }
+        StartCoroutine(waitandcall(0f)); //0.3
 
     }
+
+
     IEnumerator MoveObject(GameObject source, Vector3 target, float overTime)
     {
+
         float startTime = Time.time;
         while (Time.time < startTime + overTime)
         {
@@ -364,10 +389,12 @@ public class tileManager : MonoBehaviour
             yield return null;
         }
         source.transform.position = target;
+
     }
 
 
 
+    //disable higlight effect of tiles and detach from cursor gameobject
     public void refresh()
     {
         foreach (GameObject g in tiles)
@@ -380,9 +407,7 @@ public class tileManager : MonoBehaviour
     }
 
     public void playagain() 
-    {
-        //Application.LoadLevel(Application.loadedLevel);
-        SceneManager.LoadScene("SampleScene");
+    {        SceneManager.LoadScene("SampleScene");
 
     }
 }

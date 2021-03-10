@@ -199,7 +199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96855466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.83, y: 1.88, z: 0}
+  m_LocalPosition: {x: -13.92, y: 3.65, z: 0}
   m_LocalScale: {x: 2.6025252, y: 2.7487743, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1263,6 +1263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1090516902}
+  - component: {fileID: 1090516903}
   m_Layer: 0
   m_Name: bomb
   m_TagString: Untagged
@@ -1285,6 +1286,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1090516903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090516901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5687dc96b9f4fac4b9ce1a416a83bc7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombindex: 0
+  bombremaingtime: 0
+  isbombactive: 0
+  bombcolor: 0
+  tilesize: 0
+  bombtxtobj: {fileID: 1090516901}
+  remainingtimebombtxt: {fileID: 1430884188}
 --- !u!1 &1299430137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,7 +1668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.09, y: -0.03}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1.1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &1604881455 stripped
@@ -2060,9 +2080,10 @@ MonoBehaviour:
   tilegapy: -0.08
   ci: 0
   tiles: []
+  tiledropspeed: 0.2
   scoretxt: {fileID: 541585774}
   highscoretxt: {fileID: 126694640}
-  score: 980
+  score: 0
   highscore: 0
   bombindex: 0
   bombremaingtime: 0
@@ -2071,6 +2092,7 @@ MonoBehaviour:
   bombtxtobj: {fileID: 1090516901}
   remainingtimebombtxt: {fileID: 1430884188}
   endgamebutton: {fileID: 1810146950}
+  bomb: {fileID: 1090516903}
   expl: {fileID: 437763518}
 --- !u!4 &1911256315
 Transform:

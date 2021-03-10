@@ -9,6 +9,7 @@ public class controls : MonoBehaviour
     Vector2 startpos;
     Vector2 endpos;
     bool canswipe = true;
+    bool isrotating = false;
 
     public GameObject maskobj;
 
@@ -19,7 +20,9 @@ public class controls : MonoBehaviour
     }
     void Update()
     {
+        //as cursor child object change, insteadof adding to child, it updates the position everyframe.
         maskobj.transform.position = cursor.transform.position;
+        //
         Vector2 pointt;
         if (Input.touchCount > 0)
         {
@@ -29,20 +32,22 @@ public class controls : MonoBehaviour
             {
                 startpos = new Vector2(t.position.x / (float)Screen.width, t.position.y / (float)Screen.width);
             }
-            if (t.phase == TouchPhase.Ended && canswipe == true)
+            if (t.phase == TouchPhase.Ended && canswipe == true&& isrotating==false)
             {
 
                 endpos = new Vector2(t.position.x / (float)Screen.width, t.position.y / (float)Screen.width);
 
                 direction = new Vector2(endpos.x - startpos.x, endpos.y - startpos.y);
-                Invoke("swipedelay", 0.35f);
+                Invoke("swipedelay", 0.05f);
                 if (direction.x > 0 && direction.magnitude > 0.15f)
                 {
+                    isrotating = true;
                     StartCoroutine(rotetehexagons(-120, 2));
 
                 }
                 else if (direction.x < 0 && direction.magnitude > 0.15f)
                 {
+                    isrotating = true;
                     StartCoroutine(rotetehexagons(120, 2));
                 }
                 else
@@ -58,6 +63,7 @@ public class controls : MonoBehaviour
 
     }
 
+    //select the tiles near touch location
     void docontrols(Vector2 pointt)
     {
         Collider2D[] temp = cl;
@@ -79,11 +85,10 @@ public class controls : MonoBehaviour
             return;
         }
         Vector3 sum = new Vector3(0, 0, 0);
-        //cursor.transform.position = new Vector3(3, -3, 0);
 
 
 
-        //highlights the selected 
+        //highlights the selected ones and set as child of cursor objet
         for (int i = 0; i < 3; i++)
         {
             cl[i].GetComponent<tile>().sprite.sortingOrder += 2;
@@ -103,6 +108,17 @@ public class controls : MonoBehaviour
 
 
 
+
+    /*
+     * Cursor gameobject have 3 tile  child object which selected
+     *  rotate by 120 
+     *  detach childs and check if there is a match
+     *  re add childs to cursor
+     *  rotate again
+     *  
+     *  if its not matched refresh selected ones and do fake touch to the same location
+     *  
+     */
     IEnumerator rotetehexagons(float a, int rotatecount)
     {
         maskobj.transform.rotation = cursor.transform.rotation;
@@ -134,27 +150,27 @@ public class controls : MonoBehaviour
            float xpos = gg.transform.position.x;
            float ypos = gg.transform.position.y;
 
-           gg.transform.localScale = new Vector3(1, 1, 1);
+
            gg.transform.rotation = Quaternion.Euler(0, 0, 0);
            xpos = Mathf.Round(xpos * 10.0f) * 0.1f;
-           // ypos = Mathf.Round(ypos * 10.0f) * 0.1f;
+
 
            gg.transform.position = new Vector2(xpos, ypos);
        }
 
          
+       
         bool stopturning;
-
-        stopturning = tm.checkforgrouped();
-        //stopturning = false;     
-        
+        stopturning = tm.checkforgrouped();    
+                      
 
 
 
 
-        if (stopturning == false)
+        if (stopturning == false)  //no blocks matched rotate again 
         {
             newturn();
+            
             foreach (GameObject t in tiles)
             {
                 if (t == null)
@@ -163,29 +179,21 @@ public class controls : MonoBehaviour
                 }
                 t.transform.parent = cursor.transform;
             }
+            
 
             if (rotatecount > 0)
             {
                 rotatecount -= 1;
                 StartCoroutine(rotetehexagons(a, rotatecount));
             }
-            else
+            else   //no tiles matched, new turn
             {
-
-                tm.refresh();
-                //StartCoroutine("newturn", 0.5f);
-                newturn();
-                
-
+                StartCoroutine(delaytonewturn());
             }
         }
-        else
+        else   // some tiles matched
         {
-            tm.refresh();
-            //StartCoroutine("newturn", 1f);
-            newturn();
-            tm.turnpassed();
-
+            StartCoroutine(delaytonewturn());
         }
 
     }
@@ -197,23 +205,20 @@ public class controls : MonoBehaviour
                     cursor.transform.position.y));
     }
 
-    IEnumerator MoveObject(Vector3 source, Vector3 target, float overTime)
+    IEnumerator delaytonewturn() 
     {
-        float startTime = Time.time;
-        while (Time.time < startTime + overTime)
-        {
-            transform.position = Vector3.Lerp(source, target, (Time.time - startTime) / overTime);
-            yield return null;
-        }
-        transform.position = target;
+        yield return new WaitForSeconds(1f);
+        Debug.Log("tiles matched, passed to new turn");
+        tm.refresh();
+        newturn();
+        tm.turnpassed();
+        isrotating = false;
     }
     IEnumerator rotateObject(Quaternion source, Quaternion target, float overTime)
     {
         float startTime = Time.time;
         while (Time.time < startTime + overTime)
-        {
-            //transform.position = Vector3.Lerp(source, target, (Time.time - startTime) / overTime);
-            cursor.transform.rotation = Quaternion.Lerp(source,target, (Time.time - startTime) / overTime);
+        {            cursor.transform.rotation = Quaternion.Lerp(source,target, (Time.time - startTime) / overTime);
             yield return null;
         }
         cursor.transform.rotation = target;
