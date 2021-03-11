@@ -33,6 +33,7 @@ public class tileManager : MonoBehaviour
 
     public Button endgamebutton;
 
+    public bool islevelbuilded;
 
 
 
@@ -48,17 +49,21 @@ public class tileManager : MonoBehaviour
         //check matched blocks after tile spawn
         //InvokeRepeating("checkforgrouped", 0.05f, 0.05f);
         checkforgrouped();
-        Invoke("setvaluesafterinitialize", 0.2f);
+     //   Invoke("setvaluesafterinitialize", 3f);
+        InvokeRepeating("setvaluesafterinitialize",0.2f,0.2f);
     }
     void setvaluesafterinitialize()
     {
-
+        if (islevelbuilded==false)
+        {
+            return;
+        }
        // CancelInvoke("checkforgrouped");
         score = 0;
         highscore = 0;
         scoretxt.text = score.ToString();
         highscoretxt.text = highscore.ToString();
-
+        CancelInvoke("setvaluesafterinitialize");
 
         /*You are trying to create a MonoBehaviour using the 'new' keyword.  This is not allowed.  
          * MonoBehaviours can only be added using AddComponent().
@@ -264,9 +269,11 @@ public class tileManager : MonoBehaviour
             }
             else  //no tiles matched
             {
+                
 
             }
         }
+        islevelbuilded = true;
 
 
 
