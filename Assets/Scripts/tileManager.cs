@@ -171,7 +171,7 @@ public class tileManager : MonoBehaviour
      *   check if the distance between tiles are lower than specific values to  (3 blocks can be Y or l shape )
      *    if colors and distance calculation are good then send these tiles as list to moveblocksafterexplode function.
      *    
-     *    in case of matched tiles, check again as the new tiles can be matched again
+     *    in case of matched tiles, check again as the new tiles can be matched again    (4 5 group disabled as the requirements says 3 hexagon)
      */
     public bool checkforgrouped()
     {
